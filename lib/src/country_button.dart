@@ -18,6 +18,7 @@ class CountryButton extends StatelessWidget {
   final BorderRadius? borderRadius;
   final Color? dropdownIconColor;
   final bool enabled;
+  final bool useEmoji;
 
   const CountryButton({
     super.key,
@@ -33,6 +34,7 @@ class CountryButton extends StatelessWidget {
     this.dropdownIconColor,
     this.enabled = true,
     this.borderRadius,
+    this.useEmoji = false,
   });
 
   @override
@@ -65,10 +67,15 @@ class CountryButton extends StatelessWidget {
               ExcludeSemantics(
                 child: GrayScale(
                   visible: !enabled,
-                  child: CircleFlag(
-                    isoCode.name,
-                    size: flagSize,
-                  ),
+                  child: useEmoji
+                      ? Text(
+                          generateFlagEmojiUnicode(isoCode.name),
+                          style: TextStyle(fontSize: flagSize),
+                        )
+                      : CircleFlag(
+                          isoCode.name,
+                          size: flagSize,
+                        ),
                 ),
               ),
               const SizedBox(width: 8),
@@ -121,4 +128,16 @@ class GrayScale extends StatelessWidget {
       child: child,
     );
   }
+}
+
+/// Returns a [String] which will be the unicode of a Flag Emoji,
+/// from a country [countryCode] passed as a parameter.
+String generateFlagEmojiUnicode(String countryCode) {
+  const base = 127397;
+
+  return countryCode.codeUnits
+      .map((e) => String.fromCharCode(base + e))
+      .toList()
+      .reduce((value, element) => value + element)
+      .toString();
 }

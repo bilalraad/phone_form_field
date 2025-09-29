@@ -15,6 +15,8 @@ class CountryButtonStyle {
   /// Whether to show the country flag in the country button
   final bool showFlag;
 
+  final bool useEmoji;
+
   /// Whether to show Dial Code in the country button
   /// setting this to false will hide, for example, (+1)
   final bool showDialCode;
@@ -37,6 +39,7 @@ class CountryButtonStyle {
     this.showFlag = true,
     this.showDialCode = true,
     this.showIsoCode = false,
+    this.useEmoji = false,
     this.showDropdownIcon = true,
     this.dropdownIconColor,
     this.borderRadius,
@@ -52,12 +55,14 @@ class CountryButtonStyle {
     bool? showDropdownIcon,
     Color? dropdownIconColor,
     BorderRadius? borderRadius,
+    bool? useEmoji,
   }) {
     return CountryButtonStyle(
       textStyle: textStyle ?? this.textStyle,
       padding: padding ?? this.padding,
       flagSize: flagSize ?? this.flagSize,
       showFlag: showFlag ?? this.showFlag,
+      useEmoji: useEmoji ?? this.useEmoji,
       showDialCode: showDialCode ?? this.showDialCode,
       showIsoCode: showIsoCode ?? this.showIsoCode,
       showDropdownIcon: showDropdownIcon ?? this.showDropdownIcon,
