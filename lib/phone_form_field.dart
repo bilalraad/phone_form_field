@@ -1,5 +1,7 @@
 library phone_number_input;
 
+export 'package:flutter_country_selector/flutter_country_selector.dart';
+
 export 'src/phone_form_field.dart';
 export 'src/country_selector_navigator.dart';
 export 'src/country_button.dart';
