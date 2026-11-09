@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:phone_form_field/phone_form_field.dart';
 
 /// Will talk back the following:
 /// "Editbox, Phone number, detected text: +1 650 555 1234", ...
@@ -19,27 +18,9 @@ class PhoneFieldSemantics extends StatelessWidget {
     required this.inputDecoration,
   });
 
+  // The inner TextField already exposes its label (from the decoration) and its value to
+  // assistive tech. Wrapping it in ExcludeSemantics hid the real editable node, so on Flutter
+  // web with semantics enabled typing and paste never reached the field.
   @override
-  Widget build(BuildContext context) {
-    String label = PhoneFieldLocalization.of(context).phoneNumber;
-    final labelText = inputDecoration.labelText ?? '';
-    final hintText = inputDecoration.hintText ?? '';
-    if (labelText.isNotEmpty) {
-      label = labelText;
-    } else if (hintText.isNotEmpty) {
-      label = hintText;
-    }
-
-    return Semantics(
-      label: label,
-      textField: true,
-      container: true,
-      focusable: true,
-      focused: hasFocus,
-      enabled: enabled,
-      child: ExcludeSemantics(
-        child: child,
-      ),
-    );
-  }
+  Widget build(BuildContext context) => child;
 }
